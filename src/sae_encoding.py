@@ -76,7 +76,10 @@ def sae_encoding(input_ids, attention_mask, hookpoint, model, sae, activation=Fa
                 pre_acts = torch.zeros_like(features.pre_acts)
                 pre_acts = pre_acts.scatter(1, features.top_indices, features.top_acts)
             else:
-                pre_acts = features.pre_acts
+                if hasattr(features, "pre_acts"):
+                    pre_acts = features.pre_acts
+                else:
+                    pre_acts = features
         return pre_acts
     else:
         if type(sae).__name__ == 'SparseAutoEncoder':

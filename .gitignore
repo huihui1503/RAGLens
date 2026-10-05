@@ -1,3 +1,6 @@
 __pycache__/
 .env
 .vscode/
+mistral-7b-sparse-autoencoder-layer16/
+results/
+dataset/
