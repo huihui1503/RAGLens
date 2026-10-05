@@ -58,7 +58,10 @@ def parse_args():
 # Data loading
 # ----------------------------------------------------------------------
 def load_data(dataset_name: str, llm_model: str):
-    data_dir = f"./dataset/{dataset_name}/merged.jsonl"
+    if llm_model == "llama-3-8b-instruct" and dataset_name == "ragtruth":
+        data_dir = f"./dataset/{dataset_name}/llama_8b_merged.jsonl"
+    else:
+        data_dir = f"./dataset/{dataset_name}/merged.jsonl"
     def load_jsonl(path):
         with open(path, "r", encoding="utf-8") as f:
             return [json.loads(line) for line in f]
@@ -207,8 +210,8 @@ def main():
         data_type = "llama-3-8b-instruct"
     elif args.model == "mistral-7b":
         llm_model_name = "mistralai/Mistral-7B-Instruct-v0.1"
-        # sae_model_name = "/home/huy/baselines/RAGLens/mistral-7b-sparse-autoencoder-layer16"
-        sae_model_name = "/home/huy/baselines/RAGLens/saes/mistral-layer16"
+        sae_model_name = "/home/huy/baselines/RAGLens/mistral-7b-sparse-autoencoder-layer16"
+        # sae_model_name = "/home/huy/baselines/RAGLens/saes/mistral-layer16"
         hook_point = "layers.16"
         data_type = "mistral-7B-instruct"
     else:
